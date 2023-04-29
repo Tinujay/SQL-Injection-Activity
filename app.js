@@ -1,8 +1,10 @@
-const http = require('http'),
-  path = require('path'),
-  express = require('express'),
-  bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
+const http = require('http'),
+	path = require('path'),
+	express = require('express'),
+	bodyParser = require('body-parser');
+
+
 const app = express();
 app.use(express.static('.'))
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -26,6 +28,10 @@ app.post('/login', function (req, res) {
     const password = req.body.password;
     const query = "SELECT title FROM user WHERE username = '" + username + "' AND password = '" + password + "';";
   
+    console.log("username: " + username);
+	console.log("password: " + password);
+	console.log('query: ' + query);
+    
     db.get(query, function (err, row) {
       if (err) {
         console.log('ERROR', err);
